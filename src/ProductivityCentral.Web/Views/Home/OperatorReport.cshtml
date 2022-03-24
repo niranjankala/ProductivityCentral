@@ -1,5 +1,5 @@
 ﻿@using ProductivityCentral.Web.Models
-@model OperatorReportViewModel
+@model OperatorReportItems
 
 @{
     ViewBag.Title = "Operator Report";
@@ -8,7 +8,7 @@
 <h2>Operator Report</h2>
 
 
-<table>
+<table class="table">
     <thead>
         <tr>
             <th>S.No.</th>
@@ -21,22 +21,24 @@
             <th>Reactive Response Rate</th>
             <th>Total Chat Length</th>
             <th>Average Chat Length</th>
-        </tr>
-        @foreach (OperatorReportViewModel item in Model)
-        { 
-        <tr>
-            <td>@item.ID</td>
-            <td>@item.Name</td>
-            <td>@item.ProactiveSent</td>
-            <td>@item.ProactiveAnswered</td>
-            <td>@item.ProactiveResponseRate</td>
-            <td>@item.ReactiveReceived</td>
-            <td>@item.ReactiveAnswered</td>
-            <td>@item.ReactiveResponseRate</td>
-            <td>@item.TotalChatLength</td>
-            <td>@item.AverageChatLength</td>
-        </tr>
-        }
+        </tr>       
     </thead>
+    <tbody>
+        @foreach (OperatorReportViewModel item in Model.OperatorProductivity)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.ProactiveSent</td>
+                <td>@item.ProactiveAnswered</td>
+                <td>@item.ProactiveResponseRate</td>
+                <td>@item.ReactiveReceived</td>
+                <td>@item.ReactiveAnswered</td>
+                <td>@item.ReactiveResponseRate</td>
+                <td>@item.TotalChatLength</td>
+                <td>@item.AverageChatLength</td>
+            </tr>
+        }
+    </tbody>
 </table>
 

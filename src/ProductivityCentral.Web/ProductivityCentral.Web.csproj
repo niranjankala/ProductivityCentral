@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Models\OperatorReportViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OperatorReportService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using ProductivityCentral.Logging;
+using ProductivityCentral.Web.Models;
+using ProductivityCentral.Web.Services;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +12,14 @@ namespace ProductivityCentral.Web.Controllers
 {
     public class HomeController : Controller
     {
+        readonly IOperatorReportService _operatorReportService;
+        public ILogger Logger { get; set; }
+        public HomeController(IOperatorReportService operatorReportService)
+        {
+            _operatorReportService = operatorReportService;
+            Logger = NullLogger.Instance;
+        }
+       
         public ActionResult Index()
         {
             return View();
@@ -29,31 +41,9 @@ namespace ProductivityCentral.Web.Controllers
 
         public ActionResult OperatorReport()
         {
-            OperatorReportItems ProductivityReport = new OperatorReportItems();
-            ProductivityReport.OperatorProductivity = new OperatorReportViewModel();
-
             ViewBag.Message = "Operator Productivity Report";
-            SqlConnection conn = SqlConnection("Data Source=FAISALHABIB\\SQLEXPRESS;Initial Catalog=chat;User id=chat;Password=chat;");
-            SqlCommand sqlcomm = SqlCommand("exec dbo.OperatorProductivity ", conn);
-            conn.Open();
-            SqlDataReader dr = sqlcomm.ExecuteReader();
-            if (dr.Read())
-            {
-                OperatorReportViewModel opVM = new Models.OperatorReportViewModel();
-                opVM.ID = Convert.ToInt32(dr[1]);
-                opVM.Name = Convert.ToString(dr[0]);
-                opVM.ProactiveAnswered = Convert.ToInt32(dr[2]);
-                opVM.ProactiveSent = Convert.ToInt32(dr[3]);
-                opVM.ProactiveResponseRate = Convert.ToInt32(dr[4]);
-                opVM.ReactiveAnswered = Convert.ToInt32(dr[5]);
-                opVM.ReactiveReceived = Convert.ToInt32(dr[6]);
-                opVM.ReactiveResponseRate = Convert.ToInt32(dr[7]);
-                opVM.AverageChatLength = Convert.ToString(dr[8]);
-                opVM.TotalChatLength = Convert.ToString(dr[9]);
-                ProductivityReport.OperatorProductivity.Add(opVM);
-            }
-
-            return View(ProductivityReport.OperatorProductivity);
+            OperatorReportItems ProductivityReport = _operatorReportService.GetOperatorReportItems();
+            return View(ProductivityReport);
         }
 
         public ActionResult OperatorProductivityData()

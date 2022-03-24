@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
+using ProductivityCentral.Environment;
 using ProductivityCentral.FileStorage;
 using ProductivityCentral.Logging;
+using ProductivityCentral.Web.Services;
 //using Microsoft.Owin.Security;
 using System;
 using System.IO;
@@ -46,6 +48,7 @@ namespace ProductivityCentral.Web
             if (!Directory.Exists(baseDirectoryPath))
                 baseDirectoryPath = AppDomain.CurrentDomain.BaseDirectory;
 
+            builder.RegisterModule(new EnvironmentModule());
             builder.RegisterModule(new LoggingModule());
             builder.RegisterModule(new FileStoreModule());
             //API Controllers Registration
@@ -61,6 +64,7 @@ namespace ProductivityCentral.Web
                 !assemblyType.FullName.Contains("ProductivityCentral.Web")
                 )).ToArray();
 
+            builder.RegisterType<OperatorReportService>().As<IOperatorReportService>().InstancePerLifetimeScope();
             //builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();            
 
             builder.RegisterAssemblyTypes(assemblies)
