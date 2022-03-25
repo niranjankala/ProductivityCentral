@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProductivityCentral.Web.Models
 {
@@ -22,5 +23,7 @@ namespace ProductivityCentral.Web.Models
     public class OperatorReportItems
     {
         public ICollection<OperatorReportViewModel> OperatorProductivity { get; set; }
+        public OperatorReportSearchCriteria SearchCriteria { get; set; }
+        
     }
 }

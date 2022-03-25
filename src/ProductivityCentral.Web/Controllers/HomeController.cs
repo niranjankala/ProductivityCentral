@@ -39,11 +39,19 @@ namespace ProductivityCentral.Web.Controllers
             return View();
         }
 
-        public ActionResult OperatorReport()
+        public ActionResult OperatorReport(OperatorReportSearchCriteria searchCriteria)
         {
-            ViewBag.Message = "Operator Productivity Report";
-            OperatorReportItems ProductivityReport = _operatorReportService.GetOperatorReportItems();
-            return View(ProductivityReport);
+            ViewBag.Message = "Operator Productivity Report";            
+
+            OperatorReportItems productivityReport = _operatorReportService.GetOperatorReportItems(searchCriteria);
+            productivityReport.SearchCriteria = searchCriteria;
+            IEnumerable<SelectListItem> predefinedFiltersList = _operatorReportService.GetPredefinedFiltersListItems(searchCriteria.PreDefinedFilter);           
+            productivityReport.SearchCriteria.PreDefinedFilters = predefinedFiltersList;
+
+            productivityReport.SearchCriteria.WebsitesList = _operatorReportService.GetWebsitesListItems(searchCriteria.SelectedWebsites);
+            productivityReport.SearchCriteria.DevicesList = _operatorReportService.GetDevicesListItems(searchCriteria.SelectedWebsites);
+
+            return View(productivityReport);
         }
 
         public ActionResult OperatorProductivityData()

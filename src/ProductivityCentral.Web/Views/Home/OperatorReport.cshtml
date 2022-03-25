@@ -4,41 +4,101 @@
 @{
     ViewBag.Title = "Operator Report";
 }
+@section scripts
+{
+    <script src="~/Scripts/Home/operatorreport.js"></script>
+}
 
-<h2>Operator Report</h2>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Operator Report</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm("OperatorReport", "Home", FormMethod.Get, new { @class = "form-inline" }))
+            {
+
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(p => Model.SearchCriteria.DateFilter, new { @class = "control-label" })
+                    <div class="form-group">
+                        <input class="form-control" data-datefilter="pre-defined" type="radio" value="0" name="DateFilter" checked="checked" />  <span>Pre-Defined</span>
+                        <input class="form-control" data-datefilter="custom" type="radio" value="1" name="DateFilter"><span>Custom</span>
+                    </div>
+                </div>
+                <div class="form-group col-md-3" id="pre-defined">
+                    @Html.LabelFor(m => Model.SearchCriteria.PreDefinedFilter, new { @class = "control-label" })
+                    @Html.DropDownListFor(p => Model.SearchCriteria.PreDefinedFilter, Model.SearchCriteria.PreDefinedFilters)
+                </div>
+                <div class="form-group col-md-6" id="custom">
+                    <div class="form-group">
+                        @Html.Label("From date", new { @class = "control-label" })
+                        @Html.EditorFor(m => Model.SearchCriteria.FromDate, new { @class = "form-control", id = "from-date" })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("To date", new { @class = "control-label" })
+                        @Html.EditorFor(m => Model.SearchCriteria.ToDate, new { @class = "form-control", id = "to-date" })
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => Model.SearchCriteria.SelectedWebsites, new { @class = "control-label" })
+                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedWebsites, Model.SearchCriteria.WebsitesList)
+                </div>
+                <div class="form-group col-md-6">
+                    @Html.LabelFor(m => Model.SearchCriteria.SelectedDevices, new { @class = "control-label" })
+                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedDevices, Model.SearchCriteria.DevicesList)
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="submit" value="Search" class="btn" />
+                </div>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>S.No.</th>
+                        <th>Operator Name</th>
+                        <th>Proactive Sent</th>
+                        <th>Proactive Answered</th>
+                        <th>Proactive Response Rate</th>
+                        <th>Reactive Received</th>
+                        <th>Reactive Answered</th>
+                        <th>Reactive Response Rate</th>
+                        <th>Total Chat Length</th>
+                        <th>Average Chat Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (OperatorReportViewModel item in Model.OperatorProductivity)
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.Name</td>
+                            <td>@item.ProactiveSent</td>
+                            <td>@item.ProactiveAnswered</td>
+                            <td>@item.ProactiveResponseRate</td>
+                            <td>@item.ReactiveReceived</td>
+                            <td>@item.ReactiveAnswered</td>
+                            <td>@item.ReactiveResponseRate</td>
+                            <td>@item.TotalChatLength</td>
+                            <td>@item.AverageChatLength</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>S.No.</th>
-            <th>Operator Name</th>
-            <th>Proactive Sent</th>
-            <th>Proactive Answered</th>
-            <th>Proactive Response Rate</th>
-            <th>Reactive Received</th>
-            <th>Reactive Answered</th>
-            <th>Reactive Response Rate</th>
-            <th>Total Chat Length</th>
-            <th>Average Chat Length</th>
-        </tr>       
-    </thead>
-    <tbody>
-        @foreach (OperatorReportViewModel item in Model.OperatorProductivity)
-        {
-            <tr>
-                <td>@item.ID</td>
-                <td>@item.Name</td>
-                <td>@item.ProactiveSent</td>
-                <td>@item.ProactiveAnswered</td>
-                <td>@item.ProactiveResponseRate</td>
-                <td>@item.ReactiveReceived</td>
-                <td>@item.ReactiveAnswered</td>
-                <td>@item.ReactiveResponseRate</td>
-                <td>@item.TotalChatLength</td>
-                <td>@item.AverageChatLength</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+
+
+
 
