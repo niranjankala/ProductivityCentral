@@ -34,3 +34,6 @@ Open the dbscript.sql in SSMS from the deploy directory in the solution location
 
 
 *Now switch to the Visal studio and press F5 ito run the project or click the run button in the ribbon menu.*
+
+
+Demo URL - https://operatorproductivity.azurewebsites.net
