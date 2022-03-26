@@ -27,3 +27,50 @@ textarea {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.main {
+	background: #fff;
+    margin: 20px;
+    box-shadow: 0 0 15px rgb(0 0 0 / 25%);
+    border-radius: 10px;
+}
+.heading {
+	border-bottom: 1px solid #ccc;
+    padding: 0 0 10px 0;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 25px;
+	color: #414042
+}
+.filter-wrap {
+	background: #f7f7f9;padding:10px 15px;border-radius: 10px 10px 0 0;font-size:12px
+}
+.filter-wrap .control-label {
+	display: block;margin-bottom:5px;font-size:12px
+}
+.filter-wrap .form-control {
+	font-size: 12px;
+    padding: 5px;
+    height: 28px;
+}
+.filter-wrap .search-btn {
+	width: 100px;margin-top: 22px;height: 28px;padding:0
+}
+.filter-wrap .data-filter-btn{
+	padding: 0px;height: 28px
+}
+.filter-wrap .data-filter-btn span {
+	font-size: 12px;padding: 5px 10px 5px 24px;display:block;position:relative;
+}
+.filter-wrap .data-filter-btn span:after {
+	content:'';position:absolute;display:block;height:14px;width:14px;border:1px solid #777;top:5px;left:7px;border-radius:99px
+}
+.filter-wrap .data-filter-btn span:before {
+	content:'';position:absolute;display:block;height:8px;width:8px;background: #777;top:8px;left:10px;border-radius:99px;display:none
+}
+.filter-wrap .data-filter-btn input:checked + span:before {
+	display:block
+}
+
+
+.table-style {font-size:12px; text-align:center}

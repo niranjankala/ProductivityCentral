@@ -75,8 +75,9 @@
     <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="Logging\NullLoggerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\PathHelper.cs" />
-    <Compile Include="Utils\XMLHelper.cs" />
+    <Compile Include="Utility\CalendarHelper.cs" />
+    <Compile Include="Utility\PathHelper.cs" />
+    <Compile Include="Utility\XMLHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">

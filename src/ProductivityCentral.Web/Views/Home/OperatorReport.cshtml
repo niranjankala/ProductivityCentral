@@ -6,61 +6,72 @@
 }
 @section scripts
 {
-    <script src="~/Scripts/Home/operatorreport.js"></script>
+    <script src="~/Scripts/Home/operatorreport.js"></script>    
 }
 
 
-<div class="container-fluid">
+<div class="container-fluid main">
     <div class="row">
         <div class="col-md-12">
-            <h2>Operator Report</h2>
+            <h2 class="heading">Operator Report</h2>
         </div>
     </div>
+    <!--component-->
     <div class="row">
         <div class="col-md-12">
-            @using (Html.BeginForm("OperatorReport", "Home", FormMethod.Get, new { @class = "form-inline" }))
+            @using (Html.BeginForm("OperatorReportPost", "Home", FormMethod.Post, new { @class = "form-inline" }))
             {
-
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(p => Model.SearchCriteria.DateFilter, new { @class = "control-label" })
-                    <div class="form-group">
-                        <input class="form-control" data-datefilter="pre-defined" type="radio" value="0" name="DateFilter" checked="checked" />  <span>Pre-Defined</span>
-                        <input class="form-control" data-datefilter="custom" type="radio" value="1" name="DateFilter"><span>Custom</span>
+                <div class="col-xs-12 filter-wrap">
+                    <div class="row">
+                        <div class="form-group col-xs-3">
+                            @Html.LabelFor(p => Model.SearchCriteria.DateFilter, new { @class = "control-label" })
+                            <label class="btn btn-default data-filter-btn">
+                                <input id ='btn-pre-defined' data-datefilter="pre-defined" type="radio" value="0" name="DateFilter" checked="checked" style="display:none">  <span>Pre-Defined</span>
+                            </label>
+                            <label class="btn btn-default data-filter-btn">
+                                <input id ='btn-custom'  class="btn btn-default" data-datefilter="custom" type="radio" value="1" name="DateFilter" style="display:none"> <span>Custom</span>
+                            </label>
+                            @Html.HiddenFor(m => Model.SearchCriteria.DateFilter, new { id = "date-filter" })
+                        </div>
+                        <div class="form-group col-xs-12 col-md-2" id="pre-defined">
+                            @Html.LabelFor(m => Model.SearchCriteria.PreDefinedFilter, new { @class = "control-label" })
+                            @Html.DropDownListFor(p => Model.SearchCriteria.PreDefinedFilter, Model.SearchCriteria.PreDefinedFilters, new { @class = "form-control" })
+                        </div>
+                        <div id="custom" style="" class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => Model.SearchCriteria.FromDate, new { @class = "control-label" })
+                                @Html.EditorFor(m => Model.SearchCriteria.FromDate, new { @class = "form-control", id = "from-date", @type = "date" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => Model.SearchCriteria.ToDate, new { @class = "control-label" })
+                                @Html.EditorFor(m => Model.SearchCriteria.ToDate, new { @class = "form-control", @id = "to-date", type = "date" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="row">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => Model.SearchCriteria.SelectedWebsites, new { @class = "control-label" })
+                                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedWebsites, Model.SearchCriteria.WebsitesList, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => Model.SearchCriteria.SelectedDevices, new { @class = "control-label" })
+                                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedDevices, Model.SearchCriteria.DevicesList, new { @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" name="submit" value="Search" class="btn btn-danger search-btn" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group col-md-3" id="pre-defined">
-                    @Html.LabelFor(m => Model.SearchCriteria.PreDefinedFilter, new { @class = "control-label" })
-                    @Html.DropDownListFor(p => Model.SearchCriteria.PreDefinedFilter, Model.SearchCriteria.PreDefinedFilters)
-                </div>
-                <div class="form-group col-md-6" id="custom">
-                    <div class="form-group">
-                        @Html.Label("From date", new { @class = "control-label" })
-                        @Html.EditorFor(m => Model.SearchCriteria.FromDate, new { @class = "form-control", id = "from-date" })
-                    </div>
-                    <div class="form-group">
-                        @Html.Label("To date", new { @class = "control-label" })
-                        @Html.EditorFor(m => Model.SearchCriteria.ToDate, new { @class = "form-control", id = "to-date" })
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(m => Model.SearchCriteria.SelectedWebsites, new { @class = "control-label" })
-                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedWebsites, Model.SearchCriteria.WebsitesList)
-                </div>
-                <div class="form-group col-md-6">
-                    @Html.LabelFor(m => Model.SearchCriteria.SelectedDevices, new { @class = "control-label" })
-                    @Html.DropDownListFor(p => Model.SearchCriteria.SelectedDevices, Model.SearchCriteria.DevicesList)
-                </div>
-                <div class="form-group">
-                    <input type="submit" name="submit" value="Search" class="btn" />
                 </div>
             }
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
-            <table class="table">
+        <div class="col-md-12 table-responsive ">
+            <table class="table table-striped table-bordered table-style">
                 <thead>
-                    <tr>
+                    <tr class="success">
                         <th>S.No.</th>
                         <th>Operator Name</th>
                         <th>Proactive Sent</th>
@@ -79,14 +90,14 @@
                         <tr>
                             <td>@item.ID</td>
                             <td>@item.Name</td>
-                            <td>@item.ProactiveSent</td>
-                            <td>@item.ProactiveAnswered</td>
-                            <td>@item.ProactiveResponseRate</td>
-                            <td>@item.ReactiveReceived</td>
-                            <td>@item.ReactiveAnswered</td>
-                            <td>@item.ReactiveResponseRate</td>
-                            <td>@item.TotalChatLength</td>
-                            <td>@item.AverageChatLength</td>
+                            <td>@(item.ProactiveSent > 0 ? $"{item.ProactiveSent}":"-")</td>
+                            <td>@(item.ProactiveAnswered > 0 ? $"{item.ProactiveAnswered}":"-")</td>
+                            <td>@(item.ProactiveResponseRate> 0 ? $"{item.ProactiveResponseRate}%":"-")</td>
+                            <td>@(item.ReactiveReceived > 0 ? $"{item.ReactiveReceived}":"-")</td>
+                            <td>@(item.ReactiveAnswered > 0 ? $"{item.ReactiveAnswered}":"-")</td>
+                            <td>@(item.ReactiveResponseRate > 0 ? $"{item.ReactiveResponseRate}%":"-")</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.TotalChatLength) ? "-": item.TotalChatLength)</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.AverageChatLength) ? "-": item.AverageChatLength)</td>
                         </tr>
                     }
                 </tbody>

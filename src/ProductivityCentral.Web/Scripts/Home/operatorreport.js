@@ -1,23 +1,24 @@
 ﻿$(document).ready(function () {
     $('#custom').hide();
+    if ($('#date-filter').val() == 1) {
+        $('#btn-custom').attr('checked', 'checked');        
+        handleDateFilterTypeSelection($('#btn-custom'))
+    }
+
     $('input[type=radio]').change(function (s) {
-        var filterContainerId = $(this).attr('data-datefilter');
-        if ($(this).is(':checked') && filterContainerId == 'pre-defined') {
-            $(`#${filterContainerId}`).show();
-            $('#custom').hide();
-        }
-        else if ($(this).is(':checked') && filterContainerId == 'custom'){
-            $(`#${filterContainerId}`).show();
-            $('#pre-defined').hide();
-        }
-        //if ($(this).is(':checked') && $(filterContainerId).is(':hidden')) {
-        //    $(filterContainerId).show();
-        //    if (filterContainerId == 'pre-defined') {
-        //        $('#custom').hide();
-        //    }
-        //    else {
-        //        $('#pre-defined').hide();
-        //    }
-        //}        
+        handleDateFilterTypeSelection(this);
     });
 });
+
+function handleDateFilterTypeSelection(rdButton) {
+    var filterContainerId = $(rdButton).attr('data-datefilter');
+    if ($(rdButton).is(':checked') && filterContainerId == 'pre-defined') {
+        $(`#${filterContainerId}`).show();
+        $('#custom').hide();
+    }
+    else if ($(rdButton).is(':checked') && filterContainerId == 'custom') {
+        $(`#${filterContainerId}`).show();
+        $('#pre-defined').hide();
+    }
+    $('#date-filter').val($(rdButton).val());
+}

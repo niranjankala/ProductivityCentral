@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace ProductivityCentral.Utils
+namespace ProductivityCentral.Utility
 {
     public static class PathHelper
     {

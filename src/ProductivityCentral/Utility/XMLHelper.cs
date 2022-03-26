@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace ProductivityCentral.Utils
+namespace ProductivityCentral.Utility
 {
     public class XMLHelper
     {
