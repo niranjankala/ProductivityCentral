@@ -172,6 +172,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\operatorproductivity - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\operatorproductivity - ReadOnly - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\operatorproductivity - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Home\operatorreport.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
